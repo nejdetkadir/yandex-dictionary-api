@@ -4,16 +4,16 @@
       <form>
         <div class="form-group">
           <label for="text">Text</label>
-          <input type="text" class="form-control" id="text" placeholder="Please enter any text for searching in dictionary">
+          <input type="text" v-model="text" class="form-control" id="text" placeholder="Please enter any text for searching in dictionary">
         </div>
         <div class="form-group">
           <label for="language">From what to what language</label>
-          <select class="form-control" id="language">
-            <option>1</option>
+          <select class="form-control" id="language" v-model="language">
+            <option v-for="lang in getLanguages" :key="lang">{{ lang }}</option>
           </select>
         </div>
         <div class="form-group">
-          <button class="btn btn-success btn-sm btn-block">SEARCH IN DICTIONARY</button>
+          <button @click="searchText" type="button" class="btn btn-success btn-sm btn-block">SEARCH IN DICTIONARY</button>
         </div>
       </form>
     </div>
@@ -21,9 +21,29 @@
 </template>
 
 <script>
-export default {
-name: "Form"
-}
+  import { mapGetters } from "vuex";
+  export default {
+    name: "Form",
+    data() {
+      return{
+        language: null,
+        text: ''
+      }
+    },
+    methods: {
+      searchText() {
+        this.$store.dispatch("searchText", {
+          lang: this.language,
+          text: this.text
+        });
+        this.language = null;
+        this.text = '';
+      }
+    },
+    computed: {
+      ...mapGetters(["getLanguages"]),
+    },
+  }
 </script>
 
 <style scoped>

@@ -19,6 +19,7 @@
       Form
     },
     created() {
+      this.$store.dispatch("getLanguagesFromAPI");
     }
   }
 </script>
