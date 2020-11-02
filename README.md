@@ -5,6 +5,9 @@ How to use Yandex Dictionary API with vue-axios and vuex in VueJS? If you don't 
 
 ![cover](doc/cover.jpg)
 
+## Demo
+[Live demo](https://demo.nejdetkadirbektas.com/yandex-dictionary-api/)
+
 ## Project setup
 ```
 npm install
