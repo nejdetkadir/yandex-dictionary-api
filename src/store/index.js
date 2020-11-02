@@ -25,12 +25,17 @@ export const store = new Vuex.Store({
         searchedText: null,
         means: []
       }
-      state.result.searchedText = result[0].text;
-      for (let id in result[0].tr) {
-        state.result.means.push({
-          mean: result[0].tr[id].text,
-          type: result[0].tr[id].pos
-        })
+
+      if (result.length === 0) {
+        state.result.searchedText = 'No results found for your searched text'
+      } else {
+        state.result.searchedText = result[0].text;
+        for (let id in result[0].tr) {
+          state.result.means.push({
+            mean: result[0].tr[id].text,
+            type: result[0].tr[id].pos
+          });
+        }
       }
     }
   },
@@ -45,13 +50,13 @@ export const store = new Vuex.Store({
         });
     },
     searchText({commit}, data) {
-      Vue.axios.get(`${process.env.VUE_APP_YANDEX_API_BASE_URL}lookup?key=${process.env.VUE_APP_YANDEX_API_KEY}&lang=${data.lang.trim()}&text=${data.text.trim()}`)
+      Vue.axios.get(`${process.env.VUE_APP_YANDEX_API_BASE_URL}lookup?key=${process.env.VUE_APP_YANDEX_API_KEY}&lang=${data.lang.trim()}&text=${data.text.trim().split(" ")[0]}`)
         .then((response) => {
           commit("updateResult", response.data.def);
         })
         .catch((err) => {
           console.log(err);
-        })
+        });
     }
   },
   modules: {}

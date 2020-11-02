@@ -13,7 +13,7 @@
           </select>
         </div>
         <div class="form-group">
-          <button @click="searchText" type="button" class="btn btn-success btn-sm btn-block">SEARCH IN DICTIONARY</button>
+          <button @click="searchText" :disabled="enableSearch" type="button" class="btn btn-success btn-sm btn-block">SEARCH IN DICTIONARY</button>
         </div>
       </form>
     </div>
@@ -42,6 +42,13 @@
     },
     computed: {
       ...mapGetters(["getLanguages"]),
+      enableSearch() {
+        if (this.language != null && this.text !== '') {
+          return false;
+        } else {
+          return true;
+        }
+      }
     },
   }
 </script>
