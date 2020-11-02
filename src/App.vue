@@ -17,6 +17,8 @@
     components: {
       Result,
       Form
+    },
+    created() {
     }
   }
 </script>
